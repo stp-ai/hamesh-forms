@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מה הארכיטייפ המקצועי שלך? | חמ"ש</title>
+<meta name="description" content="שאלון קצר שיעזור לך לגלות את הסגנון הטבעי שלך בתקשורת מקצועית ברשת">
+<meta property="og:title" content="מה הארכיטייפ המקצועי שלך?">
+<meta property="og:description" content="10 שאלות. 4 ארכיטייפים. תשובה אחת שתשנה לך את הדרך ברשת.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ==========================================
+   CSS - Archetype Quiz
+   Brand: Hamesh (חמ"ש)
+   Colors: Blue #3B82F6, Purple #8B5CF6, Orange #F97316
+   ========================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Heebo', sans-serif;
+  background: #F8F6FF;
+  color: #3B1F7E;
+  line-height: 1.7;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Background decoration */
+body::before {
+  content: '';
+  position: fixed;
+  top: -200px;
+  left: -200px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(139,92,246,0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -150px;
+  right: -150px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(59,130,246,0.06) 0%, transparent 70%);
+  border-radius: 50%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 20px;
+  position: relative;
+}
+
+/* ---- Progress Bar ---- */
+.progress-container {
+  position: sticky;
+  top: 0;
+  background: rgba(248,246,255,0.95);
+  backdrop-filter: blur(10px);
+  padding: 16px 0 12px;
+  z-index: 100;
+  transition: opacity 0.3s;
+}
+
+.progress-container.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.progress-bar-track {
+  width: 100%;
+  height: 6px;
+  background: #EDE9FE;
+  border-radius: 3px;
+  overflow: hidden;
+  direction: ltr;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3B82F6, #8B5CF6);
+  border-radius: 3px;
+  transition: width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  width: 0%;
+}
+
+.progress-text {
+  font-size: 13px;
+  color: #6D5BA3;
+  margin-top: 6px;
+  text-align: center;
+}
+
+/* ---- Screens ---- */
+.screen {
+  display: none;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.screen.active {
+  display: block;
+}
+
+.screen.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---- Intro Screen ---- */
+.intro {
+  text-align: center;
+  padding: 60px 0 40px;
+}
+
+.intro-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #3B82F6, #8B5CF6);
+  color: white;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 18px;
+  border-radius: 20px;
+  margin-bottom: 24px;
+}
+
+.intro h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 16px;
+  background: linear-gradient(180deg, #3B1F7E, #6D5BA3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.intro p {
+  font-size: 1.1rem;
+  color: #6D5BA3;
+  margin-bottom: 12px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.intro .subtitle {
+  font-size: 0.95rem;
+  color: #9B8EC4;
+  margin-bottom: 40px;
+}
+
+.intro-features {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.intro-feature {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: #6D5BA3;
+}
+
+.intro-feature .icon {
+  width: 32px;
+  height: 32px;
+  background: #EDE9FE;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.btn-start {
+  display: inline-block;
+  background: linear-gradient(135deg, #F97316, #FB923C);
+  color: white;
+  font-family: 'Heebo', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  padding: 16px 48px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 15px rgba(249,115,22,0.3);
+}
+
+.btn-start:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(249,115,22,0.4);
+}
+
+.btn-start:active {
+  transform: translateY(0);
+}
+
+/* ---- Question Screen ---- */
+.question-screen {
+  padding: 20px 0 40px;
+}
+
+.question-number {
+  font-size: 0.85rem;
+  color: #9B8EC4;
+  margin-bottom: 8px;
+}
+
+.question-text {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.5;
+  margin-bottom: 28px;
+  color: #3B1F7E;
+}
+
+.answers {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.answer-btn {
+  display: block;
+  width: 100%;
+  text-align: right;
+  background: white;
+  border: 2px solid #EDE9FE;
+  border-radius: 12px;
+  padding: 16px 20px;
+  font-family: 'Heebo', sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #3B1F7E;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.answer-btn:hover {
+  border-color: #8B5CF6;
+  background: #FAF8FF;
+  transform: translateX(-4px);
+}
+
+.answer-btn:active {
+  transform: translateX(-2px);
+}
+
+.answer-btn.selected {
+  border-color: #8B5CF6;
+  background: linear-gradient(135deg, rgba(139,92,246,0.08), rgba(59,130,246,0.05));
+  box-shadow: 0 2px 10px rgba(139,92,246,0.15);
+}
+
+.answer-btn.selected::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(135deg, #3B82F6, #8B5CF6);
+  border-radius: 50%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 14px;
+}
+
+/* ---- Lead Capture Screen ---- */
+.lead-capture {
+  padding: 40px 0;
+  text-align: center;
+}
+
+.result-preview {
+  background: linear-gradient(135deg, rgba(139,92,246,0.1), rgba(59,130,246,0.08));
+  border-radius: 16px;
+  padding: 28px 24px;
+  margin-bottom: 32px;
+  border: 1px solid rgba(139,92,246,0.15);
+}
+
+.result-preview .archetype-label {
+  font-size: 0.85rem;
+  color: #8B5CF6;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.result-preview .archetype-name {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #3B1F7E;
+  margin-bottom: 8px;
+}
+
+.result-preview .archetype-teaser {
+  font-size: 1rem;
+  color: #6D5BA3;
+  line-height: 1.6;
+}
+
+.lead-capture h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #3B1F7E;
+  margin-bottom: 8px;
+}
+
+.lead-capture .lead-subtitle {
+  font-size: 0.95rem;
+  color: #6D5BA3;
+  margin-bottom: 28px;
+}
+
+.lead-form {
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: right;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #3B1F7E;
+  margin-bottom: 6px;
+}
+
+.form-group label .optional {
+  font-weight: 400;
+  color: #9B8EC4;
+  font-size: 0.8rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #EDE9FE;
+  border-radius: 10px;
+  font-family: 'Heebo', sans-serif;
+  font-size: 1rem;
+  color: #3B1F7E;
+  background: white;
+  transition: border-color 0.2s;
+  direction: rtl;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #8B5CF6;
+  box-shadow: 0 0 0 3px rgba(139,92,246,0.1);
+}
+
+.form-group input::placeholder {
+  color: #C4B5FD;
+}
+
+.form-group input.error {
+  border-color: #EF4444;
+}
+
+.form-error {
+  font-size: 0.8rem;
+  color: #EF4444;
+  margin-top: 4px;
+  display: none;
+}
+
+.form-error.visible {
+  display: block;
+}
+
+.btn-submit {
+  display: block;
+  width: 100%;
+  background: linear-gradient(135deg, #F97316, #FB923C);
+  color: white;
+  font-family: 'Heebo', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 15px rgba(249,115,22,0.3);
+  margin-top: 8px;
+}
+
+.btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(249,115,22,0.4);
+}
+
+.btn-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.form-note {
+  font-size: 0.8rem;
+  color: #9B8EC4;
+  margin-top: 12px;
+  text-align: center;
+}
+
+/* ---- Result Screen ---- */
+.result-screen {
+  padding: 20px 0 60px;
+}
+
+.result-header {
+  text-align: center;
+  padding: 40px 24px;
+  background: linear-gradient(135deg, #1E1145, #3B1F7E);
+  border-radius: 20px;
+  margin-bottom: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.result-header::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(249,115,22,0.2) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.result-header::after {
+  content: '';
+  position: absolute;
+  bottom: -80px;
+  left: -80px;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.result-header-content {
+  position: relative;
+  z-index: 1;
+}
+
+.result-label {
+  color: rgba(255,255,255,0.7);
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+.result-archetype-name {
+  color: white;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.result-tagline {
+  color: rgba(255,255,255,0.8);
+  font-size: 1.1rem;
+  font-weight: 300;
+}
+
+.result-secondary {
+  display: inline-block;
+  background: rgba(249,115,22,0.2);
+  color: #FB923C;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 6px 16px;
+  border-radius: 20px;
+  margin-top: 16px;
+}
+
+.result-body {
+  background: white;
+  border-radius: 16px;
+  padding: 28px 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 10px rgba(30,17,69,0.06);
+}
+
+.result-body h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #3B1F7E;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #EDE9FE;
+}
+
+.result-body p {
+  margin-bottom: 14px;
+  line-height: 1.8;
+}
+
+.result-body ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 14px;
+}
+
+.result-body ul li {
+  padding: 10px 16px 10px 0;
+  border-bottom: 1px solid #F3F0FF;
+  position: relative;
+  padding-right: 24px;
+}
+
+.result-body ul li::before {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 16px;
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(135deg, #F97316, #FB923C);
+  border-radius: 50%;
+}
+
+.result-body ul li:last-child {
+  border-bottom: none;
+}
+
+.blind-spot {
+  background: #FFF7ED;
+  border-radius: 12px;
+  padding: 20px;
+  border-right: 4px solid #F97316;
+  margin: 20px 0;
+}
+
+.blind-spot h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #F97316;
+  margin-bottom: 8px;
+}
+
+.blind-spot p {
+  font-size: 0.95rem;
+  color: #78350F;
+  margin-bottom: 0;
+  line-height: 1.7;
+}
+
+.combo-section {
+  background: #F0EBFF;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.combo-section h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #8B5CF6;
+  margin-bottom: 8px;
+}
+
+.combo-section p {
+  font-size: 0.95rem;
+  color: #3B1F7E;
+  margin-bottom: 0;
+  line-height: 1.7;
+}
+
+/* ---- CTA Section ---- */
+.cta-section {
+  background: linear-gradient(135deg, rgba(59,130,246,0.06), rgba(139,92,246,0.08));
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: center;
+  margin-bottom: 24px;
+  border: 1px solid rgba(139,92,246,0.1);
+}
+
+.cta-section h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #3B1F7E;
+  margin-bottom: 16px;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.cta-section p {
+  font-size: 0.95rem;
+  color: #6D5BA3;
+  margin-bottom: 20px;
+  line-height: 1.7;
+}
+
+.cta-details {
+  font-size: 0.85rem;
+  color: #9B8EC4;
+  margin-bottom: 20px;
+}
+
+.btn-cta {
+  display: inline-block;
+  background: linear-gradient(135deg, #F97316, #FB923C);
+  color: white;
+  font-family: 'Heebo', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  padding: 14px 40px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 15px rgba(249,115,22,0.3);
+}
+
+.btn-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(249,115,22,0.4);
+}
+
+/* ---- Share Section ---- */
+.share-section {
+  text-align: center;
+  padding: 24px 0;
+}
+
+.share-section h4 {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #6D5BA3;
+  margin-bottom: 16px;
+}
+
+.share-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-family: 'Heebo', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-decoration: none;
+}
+
+.share-btn:hover {
+  transform: translateY(-2px);
+}
+
+.share-btn.whatsapp {
+  background: #25D366;
+  color: white;
+}
+
+.share-btn.facebook {
+  background: #1877F2;
+  color: white;
+}
+
+.share-btn.copy-link {
+  background: #EDE9FE;
+  color: #3B1F7E;
+}
+
+.share-btn .share-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.copy-toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: #1E1145;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  z-index: 1000;
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  pointer-events: none;
+}
+
+.copy-toast.visible {
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ---- Footer ---- */
+.quiz-footer {
+  text-align: center;
+  padding: 40px 0;
+  color: #9B8EC4;
+  font-size: 0.8rem;
+}
+
+.quiz-footer a {
+  color: #8B5CF6;
+  text-decoration: none;
+}
+
+/* ---- Loading State ---- */
+.loading-dots {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.loading-dots span {
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+  animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+.loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+.loading-dots span:nth-child(3) { animation-delay: 0s; }
+
+@keyframes bounce {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1); }
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 640px) {
+  .container {
+    padding: 16px;
+  }
+
+  .intro h1 {
+    font-size: 1.6rem;
+  }
+
+  .intro p {
+    font-size: 1rem;
+  }
+
+  .question-text {
+    font-size: 1.1rem;
+  }
+
+  .answer-btn {
+    padding: 14px 16px;
+    font-size: 0.95rem;
+  }
+
+  .result-archetype-name {
+    font-size: 1.6rem;
+  }
+
+  .result-body {
+    padding: 20px 16px;
+  }
+
+  .intro-features {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+}
+
+/* ---- Accessibility ---- */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01s !important;
+    transition-duration: 0.01s !important;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+:focus-visible {
+  outline: 3px solid #8B5CF6;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Progress Bar -->
+  <div class="progress-container hidden" id="progressContainer" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progressFill"></div>
+    </div>
+    <div class="progress-text" id="progressText"></div>
+  </div>
+
+  <!-- Screen: Intro -->
+  <div class="screen active" id="screenIntro">
+    <div class="intro">
+      <div class="intro-badge">שאלון מקצועי</div>
+      <h1>מה הארכיטייפ המקצועי שלך?</h1>
+      <p>כל אחת מתקשרת אחרת. לא טוב ולא רע - אחרת. השאלון הזה יעזור לך לגלות את הסגנון הטבעי שלך.</p>
+      <p class="subtitle">10 שאלות. 2 דקות. תשובה שתשנה לך את הדרך ברשת.</p>
+
+      <div class="intro-features">
+        <div class="intro-feature">
+          <div class="icon">10</div>
+          <span>שאלות</span>
+        </div>
+        <div class="intro-feature">
+          <div class="icon">2'</div>
+          <span>דקות</span>
+        </div>
+        <div class="intro-feature">
+          <div class="icon">4</div>
+          <span>ארכיטייפים</span>
+        </div>
+      </div>
+
+      <button class="btn-start" onclick="startQuiz()" aria-label="התחלת השאלון">
+        גלי את הסגנון שלך
+      </button>
+    </div>
+  </div>
+
+  <!-- Question screens rendered by JS -->
+  <div id="questionContainer"></div>
+
+  <!-- Screen: Lead Capture -->
+  <div class="screen" id="screenLead">
+    <div class="lead-capture">
+      <div class="result-preview" id="resultPreview">
+        <div class="archetype-label">הארכיטייפ שלך הוא</div>
+        <div class="archetype-name" id="previewName"></div>
+        <div class="archetype-teaser" id="previewTeaser"></div>
+      </div>
+
+      <h2>התוצאות שלך מוכנות</h2>
+      <p class="lead-subtitle">השאירי פרטים ונראה לך את התוצאה המלאה - עם דוגמאות, טיפים, ומדריך אישי</p>
+
+      <form class="lead-form" id="leadForm" onsubmit="submitLead(event)">
+        <div class="form-group">
+          <label for="userName">שם</label>
+          <input type="text" id="userName" name="name" required placeholder="איך קוראים לך?" autocomplete="name">
+          <div class="form-error" id="nameError">נא להזין שם</div>
+        </div>
+
+        <div class="form-group">
+          <label for="userEmail">אימייל</label>
+          <input type="email" id="userEmail" name="email" required placeholder="example@email.com" autocomplete="email" dir="ltr" style="text-align:left;">
+          <div class="form-error" id="emailError">נא להזין אימייל תקין</div>
+        </div>
+
+        <div class="form-group">
+          <label for="userPhone">טלפון <span class="optional">(לא חובה - למי שרוצה סיכום בוואטסאפ)</span></label>
+          <input type="tel" id="userPhone" name="phone" placeholder="05X-XXXXXXX" autocomplete="tel" dir="ltr" style="text-align:left;">
+        </div>
+
+        <button type="submit" class="btn-submit" id="submitBtn">
+          גלי את הארכיטייפ שלך
+        </button>
+
+        <p class="form-note">לא נשלח ספאם. מבטיחים.</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Screen: Result -->
+  <div class="screen" id="screenResult">
+    <div class="result-screen">
+      <div class="result-header">
+        <div class="result-header-content">
+          <div class="result-label">הארכיטייפ המקצועי שלך</div>
+          <div class="result-archetype-name" id="resultName"></div>
+          <div class="result-tagline" id="resultTagline"></div>
+          <div class="result-secondary" id="resultSecondary"></div>
+        </div>
+      </div>
+
+      <div class="result-body" id="resultDescription">
+        <!-- Filled by JS -->
+      </div>
+
+      <div class="result-body" id="resultExamples">
+        <!-- Filled by JS -->
+      </div>
+
+      <div class="result-body" id="resultBlindSpot">
+        <!-- Filled by JS -->
+      </div>
+
+      <div class="result-body" id="resultCombo">
+        <!-- Filled by JS -->
+      </div>
+
+      <div class="cta-section">
+        <h3>את כבר יודעת מה הסגנון שלך.</h3>
+        <p>עכשיו צריך להפוך את זה לשפה שלמה - שפה שאנשים מזהים כ"שלך" עוד לפני שהם רואים את השם.</p>
+        <p>במסלול "מאישיות לתוכן" אנחנו עושים בדיוק את זה: לוקחים את מה שכבר יש לך - ובונים ממנו מותג מקצועי שלם.</p>
+        <p class="cta-details">7 מפגשים | סוכן AI אישי | כרטיס ביקור דיגיטלי | סביבת עבודה מלאה</p>
+        <a href="https://ha-mesh.com/course" class="btn-cta">רוצה לשמוע עוד?</a>
+      </div>
+
+      <div class="share-section">
+        <h4>שתפי את התוצאה שלך</h4>
+        <div class="share-buttons">
+          <button class="share-btn whatsapp" onclick="shareWhatsApp()" aria-label="שיתוף בוואטסאפ">
+            <svg class="share-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            וואטסאפ
+          </button>
+          <button class="share-btn facebook" onclick="shareFacebook()" aria-label="שיתוף בפייסבוק">
+            <svg class="share-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            פייסבוק
+          </button>
+          <button class="share-btn copy-link" onclick="copyLink()" aria-label="העתקת קישור">
+            <svg class="share-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+            העתקת קישור
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz-footer">
+    <a href="https://ha-mesh.com">חמ"ש - חיבורים מייצרים שינוי</a>
+  </div>
+</div>
+
+<div class="copy-toast" id="copyToast">הקישור הועתק</div>
+
+<script>
+// ==========================================
+// Quiz Logic - Archetype Quiz
+// ==========================================
+
+const WEBHOOK_URL = 'https://stp2403.app.n8n.cloud/webhook/hamesh-quiz';
+
+// Archetype definitions
+const archetypes = {
+  M: {
+    name: 'המורה',
+    tagline: 'את הופכת מורכב לפשוט',
+    teaser: 'יש לך כישרון טבעי לקחת דברים מסובכים ולהסביר אותם בצורה שפתאום הכל נראה הגיוני.',
+    description: `<p>יש לך כישרון שלא כולם שמים לב אליו. את לוקחת דברים שנראים מסובכים ומורכבים - ומסבירה אותם בצורה שפתאום הכל נראה הגיוני. אנשים יוצאים מהמפגש איתך לא רק עם תחושה טובה - אלא עם הבנה. והבנה, כידוע, היא הדבר שמשנה התנהגות.</p>
+<p>הסגנון הטבעי שלך הוא לתת ידע. לא ידע יבש - ידע שפותח עיניים. כשלקוחה שואלת שאלה, את לא ממהרת לתת עצה. את מסבירה. את בונה תמונה. את עוזרת לה להבין לא רק מה לעשות, אלא למה. וזה ההבדל.</p>
+<p>בתוכן שלך ברשת, הסגנון הזה הוא יתרון ענקי. אנשים צמאים למידע שמוגש בצורה נגישה. לא מאמרים אקדמיים - תובנות שאפשר לקרוא ולהגיד "אה, עכשיו הבנתי". פוסטים של "הנה איך זה עובד", מדריכים קצרים, הסברים שהופכים מושג מעורפל לברור - זה המקום שלך.</p>`,
+    examples: [
+      '"5 דברים שהגוף שלך מנסה להגיד לך - ואיך לשמוע אותם"',
+      '"הסברתי ללקוחה מה קורה בגוף שלה כשהיא לחוצה. היא הסתכלה עליי ואמרה: למה אף אחד לא אמר לי את זה קודם?"',
+      'פוסט "מיתוס VS מציאות" - לקחת אמונה רווחת בתחום שלך ולהסביר איך זה באמת עובד'
+    ],
+    blindSpot: 'לפעמים, בהתלהבות מההסבר, את עלולה לשכוח שלא כולם מחפשים להבין. יש מי שרוצה פשוט להרגיש. יש מי שרוצה שיגידו לה מה לעשות - בלי כל ההקשר. אל תוותרי על ההסבר - הוא הכוח שלך. רק תזכרי לשלב גם רגע של חום. משפט אישי. תחושה. הידע שלך הופך חזק יותר כשהוא מגיע עם אנושיות.',
+    shareText: 'עשיתי שאלון ויצא לי שאני \'המורה\' - מי שהופכת מורכב לפשוט. מה יצא לך?'
+  },
+  L: {
+    name: 'המלוה',
+    tagline: 'את יוצרת מרחב שאנשים נפתחים בו',
+    teaser: 'יש אנשים שנכנסים לחדר - ומשהו משתנה. לא בגלל מה שהם אומרים. בגלל איך שהם נוכחים. את אחת מהם.',
+    description: `<p>יש אנשים שנכנסים לחדר - ומשהו משתנה. לא בגלל מה שהם אומרים. בגלל איך שהם נוכחים. את אחת מהם.</p>
+<p>הכוח שלך הוא ביכולת לגרום לאנשים להרגיש שמישהו באמת רואה אותם. לא ברמה שטחית. ברמה שגורמת לאנשים להוריד הגנות, לנשום, לספר דברים שלא תכננו לספר. הנוכחות שלך היא הכלי הטיפולי הכי חזק שיש לך - ואת אולי אפילו לא מודעת לזה כי זה כל כך טבעי.</p>
+<p>בתוכן שלך ברשת, הכוח הזה מתבטא בסיפורים. לא סיפורי הצלחה מבריקים - רגעים אמיתיים. רגע מהקליניקה שנגע בך. תובנה ששמעת מלקוחה. שתיקה שאמרה הכל. את לא צריכה לכתוב "5 טיפים ל...". את צריכה לכתוב כמו שאת מדברת - מהלב, בעיניים פתוחות.</p>`,
+    examples: [
+      '"היום בקליניקה קרה רגע שהולך להישאר איתי. לקוחה שבאה כבר חודשיים, פתאום אמרה משהו שלא ציפיתי לשמוע..."',
+      'שיתוף של תובנה שעלתה לך אחרי מפגש - בלי לחשוף פרטים, אבל עם הרגש שנשאר',
+      'פוסט שמתחיל ב"שמתי לב שאני תמיד..." - תצפית על עצמך שהקורא מזדהה איתה'
+    ],
+    blindSpot: 'העומק הרגשי שלך הוא מתנה - אבל גם סיכון. לפעמים את נותנת כל כך הרבה נוכחות שנשאר לך מעט לעצמך. וברשת - את עלולה לחשוף דברים שאחר כך מרגישים חשופים מדי. לא צריך לגלות הכל. את יכולה לכתוב מהלב בלי לתת את כל הלב. גבול לא אומר ריחוק - הוא אומר בחירה.',
+    shareText: 'עשיתי שאלון ויצא לי שאני \'המלוה\' - מי שיוצרת מרחב שאנשים נפתחים בו. מה יצא לך?'
+  },
+  A: {
+    name: 'המעוררת',
+    tagline: 'את גורמת לאנשים להאמין שאפשר',
+    teaser: 'כשאת מדברת על מה שחשוב לך - אנשים זזים. לא בגלל שלחצת עליהם. בגלל שנתת להם לראות אפשרות שלא ראו.',
+    description: `<p>יש לך משהו שקשה לנסח אבל קל להרגיש. כשאת מדברת על מה שחשוב לך - אנשים זזים. לא בגלל שלחצת עליהם. בגלל שנתת להם לראות אפשרות שלא ראו לפני רגע.</p>
+<p>את לא "מוטיבציונית" במובן הזול של המילה. את לא תגידי "האמיני בעצמך" ותעצרי. את תגידי את הדבר הנכון, ברגע הנכון, בטון שנכנס. את תספרי סיפור של מישהי - ומי שמקשיבה תזהה בו את עצמה. את תגידי משפט אחד שישאר בראש שבועות.</p>
+<p>בתוכן שלך ברשת, הכוח הזה הוא נדיר. רוב אנשי המקצוע מפחדים "להגזים" או "לנפח". אבל את לא מגזימה - את פשוט רואה את הדברים בפרספקטיבה שנותנת תקווה. את יכולה לקחת רגע יומיומי ולהפוך אותו לנקודת מפנה. ואנשים צמאים לזה.</p>`,
+    examples: [
+      '"לקוחה אמרה לי: \'אני לא מספיק טובה בשביל להיות ברשת.\' עניתי לה: \'את לא צריכה להיות מספיק טובה. את צריכה להיות את.\'"',
+      'אמירה חדה וקצרה שמשנה זווית: "הפוסט המושלם לא קיים. הפוסט הראשון - כן."',
+      'סיפור של לקוחה (בלי שם) שעשתה צעד קטן ומה קרה'
+    ],
+    blindSpot: 'האנרגיה שלך מדבקת - ולפעמים היא עלולה להישמע כמו "מכירה". לא כי את מתכוונת לזה, אלא כי אנשים רגילים לשמוע משפטי כוח רק בפרסומות. המפתח? ספציפיות. "את יכולה" זה גנרי. "את יכולה לכתוב פוסט אחד השבוע" זה אמיתי. ככל שתהיי ספציפית יותר - האנרגיה שלך תישמע אמינה ולא שיווקית.',
+    shareText: 'עשיתי שאלון ויצא לי שאני \'המעוררת\' - מי שגורמת לאנשים להאמין שאפשר. מה יצא לך?'
+  },
+  B: {
+    name: 'הבונה',
+    tagline: 'את הופכת בלגן לתוכנית',
+    teaser: 'כשמישהי מגיעה אלייך מבולבלת, היא יוצאת עם סדר. את רואה תמונה שלמה גם כשאחרות רואות חתיכות.',
+    description: `<p>כשמישהי מגיעה אלייך מבולבלת, היא יוצאת עם סדר. לא סדר כפוי - סדר שנבנה ממה שכבר יש. את רואה תמונה שלמה גם כשאחרות רואות חתיכות, ויש לך יכולת טבעית לקחת את הערימה ולהפוך אותה לצעדים ברורים.</p>
+<p>הסגנון שלך הוא תכלס. לא חסר רגש - פשוט יעיל. כשמישהי שואלת "מה אני עושה?" את לא עונה "מה את מרגישה" - את עונה "הנה שלושה דברים, תתחילי מהראשון". וזה בדיוק מה שהרבה אנשים צריכים. לא עוד שיחה. תוכנית.</p>
+<p>בתוכן שלך ברשת, הסגנון הזה הוא זהב טהור. אנשים רוצים ערך מיידי - כלי, צ'קליסט, שלבים, מדריך שאפשר לעשות איתו משהו היום. לא הכל צריך להיות "סיפור". לפעמים הפוסט הכי טוב הוא "הנה 3 צעדים, תנסי ותגידי לי מה קרה".</p>`,
+    examples: [
+      '"צ\'קליסט: 5 דברים לעשות לפני כל טיפול (שרוב המטפלות מדלגות על 3 מהם)"',
+      '"לקוחה הגיעה עם רשימה של 20 בעיות. אחרי 10 דקות מיינו אותן ל-3. הבעיה האמיתית? תמיד אחת."',
+      'מדריך קצר "צעד-אחרי-צעד" - למשל איך להכין פוסט ראשון ב-15 דקות'
+    ],
+    blindSpot: 'היעילות שלך היא מתנה - אבל לפעמים היא עלולה לגרום לאנשים להרגיש שדילגת על הרגש. שקפצת ישר ל"פתרון" לפני שנתת מקום ל"בעיה". את לא צריכה לוותר על המעשיות - רק להוסיף רגע. לפני "הנה הצעדים" - משפט אחד שאומר "אני רואה שזה לא פשוט". הרגע הזה הופך את הכלים שלך לכלים שאנשים באמת משתמשים בהם.',
+    shareText: 'עשיתי שאלון ויצא לי שאני \'הבונה\' - מי שהופכת בלגן לתוכנית. מה יצא לך?'
+  }
+};
+
+// Combo descriptions
+const combos = {
+  'M-L': 'את מסבירה מהלב. הידע שלך מגיע עטוף בחום - ואנשים מרגישים שמישהי אכפתית מלמדת אותם, לא שמרצה מדברת.',
+  'M-A': 'את מסבירה בצורה שמזיזה. הידע שלך לא רק מבהיר - הוא נותן כוח. אנשים יוצאים ממך עם הבנה ועם תחושה שהם יכולים.',
+  'M-B': 'את מסבירה ונותנת כלים. אנשים יוצאים ממך לא רק מבינים - אלא יודעים בדיוק מה לעשות עם מה שהבינו.',
+  'L-M': 'את רואה אנשים - ועוזרת להם להבין את עצמם. הנוכחות שלך פותחת דלת, וההסבר שלך מדליק אור.',
+  'L-A': 'את רואה אנשים - ונותנת להם כוח. הנוכחות שלך עוזרת להם להוריד הגנות, והאנרגיה שלך עוזרת להם לקום.',
+  'L-B': 'את רואה אנשים - ובונה להם דרך. קודם נוכחות, אחר כך תוכנית. ואנשים הולכים על התוכנית כי הם סומכים עלייך.',
+  'A-M': 'את מזיזה אנשים - עם תוכן. לא סתם "את יכולה" - אלא "הנה למה את יכולה, והנה ההוכחה".',
+  'A-L': 'את מזיזה אנשים - מתוך חיבור. האנרגיה שלך לא באה מלמעלה אלא מהצד - מישהי שנמצאת איתם ואומרת "קדימה, ביחד".',
+  'A-B': 'את מזיזה אנשים - ונותנת להם לאן ללכת. קודם האמונה, אחר כך התוכנית. והשילוב הזה הופך מוטיבציה לתוצאות.',
+  'B-M': 'את בונה מערכות שמלמדות. הכלים שלך לא רק עובדים - הם גם מסבירים. אנשים לא רק עושים - מבינים למה.',
+  'B-L': 'את בונה מערכות עם לב. התכנון שלך מגיע עם נוכחות שגורמת לאנשים להרגיש שמישהי אכפתית בנתה את זה בשבילם.',
+  'B-A': 'את בונה מערכות שמניעות. הכלים שלך לא רק מסודרים - הם נותנים תחושה של "וואו, אפשר לעשות את זה!"'
+};
+
+// Questions data
+const questions = [
+  {
+    text: 'לקוחה חדשה שואלת אותך: "למה לבוא אליך?" - מה הכי טבעי לך לענות?',
+    weight: 2,
+    answers: [
+      { text: 'אני מסבירה לה מה הטיפול עושה ולמה - כדי שתבין ותחליט מתוך ידע', type: 'M' },
+      { text: 'אני שואלת אותה מה היא מרגישה. התשובה תגיד לי (ולה) אם זה מתאים', type: 'L' },
+      { text: 'אני מספרת לה על מישהי שהגיעה במצב דומה - ומה השתנה', type: 'A' },
+      { text: 'אני מראה לה בדיוק מה התהליך, כמה מפגשים, מה קורה בכל שלב', type: 'B' }
+    ]
+  },
+  {
+    text: 'יום חמישי בערב. עלה לך רעיון לפוסט. מה קרה שהפעיל אותך?',
+    weight: 1,
+    answers: [
+      { text: 'קראתי משהו מעניין ורוצה להסביר אותו במילים שלי', type: 'M' },
+      { text: 'קרה רגע עם לקוחה היום שנגע בי ואני צריכה לכתוב', type: 'L' },
+      { text: 'נזכרתי במשפט ששמעתי שפשוט חייב לצאת החוצה', type: 'A' },
+      { text: 'גיליתי טריק או שיטה שממש עובדת ורוצה לשתף', type: 'B' }
+    ]
+  },
+  {
+    text: 'לקוחה סיימה סדרת טיפולים. מה הכי חשוב לך שתרגיש?',
+    weight: 1,
+    answers: [
+      { text: 'שהיא מבינה מה קרה ולמה - ויכולה להסביר את זה לעצמה', type: 'M' },
+      { text: 'שמישהו באמת ראה אותה. לא את הבעיה - אותה', type: 'L' },
+      { text: 'שהיא יוצאת עם תחושת "אני יכולה" - גם בלעדיי', type: 'A' },
+      { text: 'שיש לה כלים ברורים להמשך - שהיא יודעת מה לעשות מחר בבוקר', type: 'B' }
+    ]
+  },
+  {
+    text: 'מה הכי מפחיד אותך בלפרסם ברשת?',
+    weight: 1,
+    answers: [
+      { text: 'שאכתוב משהו לא מדויק ומישהו יתקן אותי', type: 'M' },
+      { text: 'שאחשוף משהו אישי מדי ותהיה לי חרטה', type: 'L' },
+      { text: 'שאשים את הלב שלי בפוסט - ואף אחד לא יגיב', type: 'A' },
+      { text: 'שזה יראה לא מקצועי או לא מסודר', type: 'B' }
+    ]
+  },
+  {
+    text: 'מישהי שואלת: "מה את נותנת שאי אפשר למצוא ביוטיוב?" - מה עולה לך?',
+    weight: 2,
+    answers: [
+      { text: 'ביוטיוב יש מידע. אצלי את מבינה מה המידע הזה אומר עליך ספציפית', type: 'M' },
+      { text: 'ביוטיוב לא רואה אותך. אצלי - כל מה שקורה קורה בגלל הקשר בינינו', type: 'L' },
+      { text: 'ביוטיוב נותן ידע. אצלי את יוצאת עם תחושה שונה לגבי עצמך', type: 'A' },
+      { text: 'ביוטיוב נותן תיאוריה. אצלי את מקבלת תוכנית שמותאמת בדיוק למצב שלך', type: 'B' }
+    ]
+  },
+  {
+    text: 'בחרי את המשפט שהכי מדבר אלייך:',
+    weight: 1,
+    answers: [
+      { text: '"כשאנשים מבינים - הם עושים בחירות טובות יותר"', type: 'M' },
+      { text: '"אנשים לא זוכרים מה אמרת - הם זוכרים מה הרגישו"', type: 'L' },
+      { text: '"שינוי מתחיל ברגע שמפסיקים לחכות לרגע הנכון"', type: 'A' },
+      { text: '"תוכנית טובה שווה יותר מאלף כוונות טובות"', type: 'B' }
+    ]
+  },
+  {
+    text: 'את מנהלת סדנה. מה הרגע שבו את מרגישה שזה "עובד"?',
+    weight: 1,
+    answers: [
+      { text: 'כשמישהי אומרת "רגע, עכשיו הבנתי" ורואים את זה בעיניים', type: 'M' },
+      { text: 'כשנוצר שקט בחדר - כזה שמרגישים שמשהו עמוק קורה', type: 'L' },
+      { text: 'כשמישהי קמה ואומרת "אני הולכת לעשות את זה. היום"', type: 'A' },
+      { text: 'כשמישהי מצלמת את הלוח ושואלת "אפשר לקבל את הטבלה הזו?"', type: 'B' }
+    ]
+  },
+  {
+    text: 'אם היית יכולה לתת לכל הלקוחות שלך מתנה אחת - מה היא?',
+    weight: 2,
+    answers: [
+      { text: 'ספר שמסביר בדיוק איך הגוף או הנפש עובדים - בשפה פשוטה', type: 'M' },
+      { text: 'יום שבו מישהו רואה אותן בדיוק כמו שהן - בלי שיפוט', type: 'L' },
+      { text: 'חוויה שמשנה להן את הפרספקטיבה על מה שאפשר', type: 'A' },
+      { text: 'כלי מעשי אחד שהן יכולות להשתמש בו כל יום - ולראות שינוי', type: 'B' }
+    ]
+  },
+  {
+    text: 'לקוחה שולחת הודעה: "את עוזרת לי מאוד." מה עולה בך?',
+    weight: 1,
+    answers: [
+      { text: 'שמחה שההסבר שלי עבד - שהיא הבינה ויישמה', type: 'M' },
+      { text: 'ריגוש עמוק מהחיבור. מרגישה שמשהו אמיתי קרה בינינו', type: 'L' },
+      { text: 'גאווה שקטה. היא צמחה - והיא מרגישה את זה', type: 'A' },
+      { text: 'סיפוק שהגישה שלי עובדת. שהכלים נכונים', type: 'B' }
+    ]
+  },
+  {
+    text: 'מה היית רוצה שיכתבו עליך?',
+    weight: 1,
+    answers: [
+      { text: '"היא מסבירה דברים שנראים מסובכים - בצורה שפתאום הכל מתחבר"', type: 'M' },
+      { text: '"היא רואה אותך. ממש רואה. ואחרי שהיא רואה - משהו משתנה"', type: 'L' },
+      { text: '"יצאתי משם עם תחושה שאני יכולה הכל. ולא הייתי צריכה שום דבר חדש - רק לזכור מה כבר יש לי"', type: 'A' },
+      { text: '"היא נתנה לי תוכנית. לא עצות - תוכנית. ועכשיו אני יודעת בדיוק מה לעשות"', type: 'B' }
+    ]
+  }
+];
+
+// State
+let currentQuestion = 0;
+let answers = [];
+let scores = { M: 0, L: 0, A: 0, B: 0 };
+
+// Initialize
+function init() {
+  showScreen('screenIntro');
+}
+
+// Screen management
+function showScreen(screenId) {
+  document.querySelectorAll('.screen').forEach(s => {
+    s.classList.remove('active', 'visible');
+  });
+
+  const screen = document.getElementById(screenId);
+  screen.classList.add('active');
+
+  // Trigger animation
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      screen.classList.add('visible');
+    });
+  });
+
+  // Progress bar visibility
+  const progressContainer = document.getElementById('progressContainer');
+  if (screenId === 'screenIntro' || screenId === 'screenLead' || screenId === 'screenResult') {
+    progressContainer.classList.add('hidden');
+  } else {
+    progressContainer.classList.remove('hidden');
+  }
+
+  // Scroll to top
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function startQuiz() {
+  currentQuestion = 0;
+  answers = [];
+  scores = { M: 0, L: 0, A: 0, B: 0 };
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = questions[currentQuestion];
+  const container = document.getElementById('questionContainer');
+
+  // Update progress
+  const progress = ((currentQuestion) / questions.length) * 100;
+  document.getElementById('progressFill').style.width = progress + '%';
+  document.getElementById('progressText').textContent = `שאלה ${currentQuestion + 1} מתוך ${questions.length}`;
+  document.getElementById('progressContainer').setAttribute('aria-valuenow', Math.round(progress));
+
+  const isCore = q.weight === 2;
+
+  // Build HTML
+  let html = `<div class="screen active" id="questionScreen">
+    <div class="question-screen">
+      <div class="question-number">שאלה ${currentQuestion + 1} מתוך ${questions.length}${isCore ? ' (שאלת ליבה)' : ''}</div>
+      <h2 class="question-text">${q.text}</h2>
+      <div class="answers" role="radiogroup" aria-label="אפשרויות תשובה">`;
+
+  // Shuffle answers for randomness
+  const shuffled = q.answers.map((a, i) => ({ ...a, originalIndex: i }));
+  shuffleArray(shuffled);
+
+  shuffled.forEach((answer, i) => {
+    html += `<button class="answer-btn"
+      onclick="selectAnswer('${answer.type}', this)"
+      role="radio"
+      aria-checked="false"
+      data-type="${answer.type}">${answer.text}</button>`;
+  });
+
+  html += `</div></div></div>`;
+
+  container.innerHTML = html;
+
+  // Show with animation
+  const screen = container.querySelector('.screen');
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      screen.classList.add('visible');
+    });
+  });
+
+  document.getElementById('progressContainer').classList.remove('hidden');
+}
+
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+function selectAnswer(type, btn) {
+  // Visual feedback
+  document.querySelectorAll('.answer-btn').forEach(b => {
+    b.classList.remove('selected');
+    b.setAttribute('aria-checked', 'false');
+  });
+  btn.classList.add('selected');
+  btn.setAttribute('aria-checked', 'true');
+
+  // Record answer
+  const q = questions[currentQuestion];
+  scores[type] += q.weight;
+  answers.push({ question: currentQuestion, type: type, weight: q.weight });
+
+  // Auto-advance after a brief delay
+  setTimeout(() => {
+    currentQuestion++;
+    if (currentQuestion < questions.length) {
+      renderQuestion();
+    } else {
+      // Update progress to 100%
+      document.getElementById('progressFill').style.width = '100%';
+      document.getElementById('progressText').textContent = 'סיימת!';
+
+      setTimeout(() => {
+        showLeadCapture();
+      }, 400);
+    }
+  }, 500);
+}
+
+function showLeadCapture() {
+  const result = getResult();
+  const primary = archetypes[result.primary];
+
+  document.getElementById('previewName').textContent = primary.name;
+  document.getElementById('previewTeaser').textContent = primary.teaser;
+
+  showScreen('screenLead');
+}
+
+function getResult() {
+  // Find primary (highest score)
+  const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+
+  // Tiebreaker: check core questions (1, 5, 8) in order
+  let primary = sorted[0][0];
+  let secondary = sorted[1][0];
+
+  if (sorted[0][1] === sorted[1][1]) {
+    // Tie - use core question answers as tiebreaker
+    const coreAnswers = answers.filter(a => questions[a.question].weight === 2);
+    const coreCounts = {};
+    coreAnswers.forEach(a => {
+      coreCounts[a.type] = (coreCounts[a.type] || 0) + 1;
+    });
+
+    const tiedTypes = sorted.filter(s => s[1] === sorted[0][1]).map(s => s[0]);
+    let maxCore = 0;
+    tiedTypes.forEach(t => {
+      if ((coreCounts[t] || 0) > maxCore) {
+        maxCore = coreCounts[t] || 0;
+        primary = t;
+      }
+    });
+
+    secondary = sorted.find(s => s[0] !== primary)[0];
+  }
+
+  return { primary, secondary, scores: { ...scores } };
+}
+
+async function submitLead(e) {
+  e.preventDefault();
+
+  const name = document.getElementById('userName').value.trim();
+  const email = document.getElementById('userEmail').value.trim();
+  const phone = document.getElementById('userPhone').value.trim();
+
+  // Validation
+  let valid = true;
+
+  if (!name) {
+    document.getElementById('userName').classList.add('error');
+    document.getElementById('nameError').classList.add('visible');
+    valid = false;
+  } else {
+    document.getElementById('userName').classList.remove('error');
+    document.getElementById('nameError').classList.remove('visible');
+  }
+
+  if (!email || !isValidEmail(email)) {
+    document.getElementById('userEmail').classList.add('error');
+    document.getElementById('emailError').classList.add('visible');
+    valid = false;
+  } else {
+    document.getElementById('userEmail').classList.remove('error');
+    document.getElementById('emailError').classList.remove('visible');
+  }
+
+  if (!valid) return;
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loading-dots"><span></span><span></span><span></span></span>';
+
+  const result = getResult();
+  const primary = archetypes[result.primary];
+  const secondary = archetypes[result.secondary];
+
+  // Send to webhook
+  const payload = {
+    name: name,
+    email: email,
+    phone: phone || '',
+    archetype_primary: primary.name,
+    archetype_primary_code: result.primary,
+    archetype_secondary: secondary.name,
+    archetype_secondary_code: result.secondary,
+    scores: result.scores,
+    answers: answers.map(a => ({
+      question: a.question + 1,
+      type: a.type,
+      weight: a.weight
+    })),
+    timestamp: new Date().toISOString(),
+    source: 'quiz-archetype',
+    page_url: window.location.href
+  };
+
+  try {
+    await fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      mode: 'no-cors'
+    });
+  } catch (err) {
+    // Silently continue - don't block result display
+    console.log('Webhook send attempted');
+  }
+
+  showResult(result);
+}
+
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function showResult(result) {
+  const primary = archetypes[result.primary];
+  const secondary = archetypes[result.secondary];
+  const comboKey = result.primary + '-' + result.secondary;
+
+  // Header
+  document.getElementById('resultName').textContent = primary.name;
+  document.getElementById('resultTagline').textContent = primary.tagline;
+  document.getElementById('resultSecondary').textContent = `עם נגיעות של ${secondary.name}`;
+
+  // Description
+  document.getElementById('resultDescription').innerHTML = `
+    <h3>מי את כשאת מתקשרת?</h3>
+    ${primary.description}
+  `;
+
+  // Examples
+  let examplesHtml = '<h3>תוכן שמתאים לך</h3><ul>';
+  primary.examples.forEach(ex => {
+    examplesHtml += `<li>${ex}</li>`;
+  });
+  examplesHtml += '</ul>';
+  document.getElementById('resultExamples').innerHTML = examplesHtml;
+
+  // Blind spot
+  document.getElementById('resultBlindSpot').innerHTML = `
+    <div class="blind-spot">
+      <h4>שימי לב</h4>
+      <p>${primary.blindSpot}</p>
+    </div>
+  `;
+
+  // Combo
+  const comboText = combos[comboKey] || '';
+  if (comboText) {
+    document.getElementById('resultCombo').innerHTML = `
+      <div class="combo-section">
+        <h4>${primary.name} + ${secondary.name}</h4>
+        <p>${comboText}</p>
+      </div>
+    `;
+  }
+
+  showScreen('screenResult');
+}
+
+// Share functions
+function shareWhatsApp() {
+  const result = getResult();
+  const primary = archetypes[result.primary];
+  const url = encodeURIComponent(window.location.href);
+  const text = encodeURIComponent(primary.shareText + ' ' + window.location.href);
+  window.open(`https://wa.me/?text=${text}`, '_blank');
+}
+
+function shareFacebook() {
+  const url = encodeURIComponent(window.location.href);
+  window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+}
+
+function copyLink() {
+  navigator.clipboard.writeText(window.location.href).then(() => {
+    const toast = document.getElementById('copyToast');
+    toast.classList.add('visible');
+    setTimeout(() => toast.classList.remove('visible'), 2000);
+  }).catch(() => {
+    // Fallback
+    const textarea = document.createElement('textarea');
+    textarea.value = window.location.href;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+
+    const toast = document.getElementById('copyToast');
+    toast.classList.add('visible');
+    setTimeout(() => toast.classList.remove('visible'), 2000);
+  });
+}
+
+// Init on load
+document.addEventListener('DOMContentLoaded', init);
+</script>
+
+</body>
+</html>
